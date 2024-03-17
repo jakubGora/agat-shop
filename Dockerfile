@@ -24,7 +24,8 @@ RUN docker-php-ext-install -j$(nproc) gd intl pdo pdo_mysql zip
 WORKDIR /var/www/html
 RUN wget https://download.prestashop.com/download/releases/prestashop_1.7.7.0.zip
 RUN unzip prestashop_1.7.7.0.zip
-RUN mv prestashop/* . && rm -rf prestashop*
+RUN mv */* . && rm -rf prestashop*
+
 
 # Ustawienia Apache
 RUN a2enmod rewrite
