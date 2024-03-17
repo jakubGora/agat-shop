@@ -34,5 +34,5 @@ jobs:
           gcloud run deploy agatshop \
             --image gcr.io/agatshop/prestashop \
             --platform managed \
-            --region ${{ secrets.$GOOGLE_REGION }} \
+            --region ${{ secrets.GOOGLE_REGION }} \
             --allow-unauthenticated
