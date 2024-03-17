@@ -1,0 +1,32 @@
+name: Create Cloud SQL instance
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-cloud-sql-instance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          project_id: agatshop
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          export_default_credentials: true
+
+
+      - name: Create Cloud SQL instance
+        run: |
+          gcloud sql instances create prestashop-instance \
+            --database-version=MYSQL_5_7 \
+            --region=europe-central2 \
+            --tier=db-n1-standard-1 \
+            --root-password=Qwe123,. \
+            --network=default \
+            --authorized-networks=0.0.0.0/0
