@@ -24,7 +24,12 @@ RUN docker-php-ext-install -j$(nproc) gd intl pdo pdo_mysql zip
 WORKDIR /var/www/html
 RUN wget https://download.prestashop.com/download/releases/prestashop_1.7.7.0.zip
 RUN unzip prestashop_1.7.7.0.zip
-RUN mv * . && rm -rf prestashop*
+
+# Przenieś wszystkie pliki, z wyjątkiem plików .zip i .html
+RUN find . -mindepth 1 -maxdepth 1 ! -name '*.zip' ! -name '*.html' -exec mv {} . \;
+
+# Usuń katalog prestashop
+RUN rm -rf prestashop*
 
 
 # Ustawienia Apache
